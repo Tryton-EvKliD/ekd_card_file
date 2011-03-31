@@ -1,0 +1,66 @@
+type,name,res_id,src,value,fuzzy
+field,"ekd.card_file.card,active",0,Active,Действующий,0
+field,"ekd.card_file.card,amount",0,Amount,Сумма,0
+field,"ekd.card_file.card,child",0,Child Card,Подчиненая карточка,0
+field,"ekd.card_file.card,company",0,Company,Учет.орг.,0
+field,"ekd.card_file.card,currency",0,Currency,Валюта,0
+field,"ekd.card_file.card,currency_digits",0,Currency Digits,цифры валюты,0
+field,"ekd.card_file.card,date_account",0,Date Account,Учетная дата,0
+field,"ekd.card_file.card,date_card",0,Date Create,Дата создания,0
+field,"ekd.card_file.card,deleting",0,Flag Deleting,Флаг удаления,0
+field,"ekd.card_file.card,document_base",0,Document Base,Документ основание,0
+field,"ekd.card_file.card,employee",0,Employee,Сотрудник,0
+field,"ekd.card_file.card,id_1c",0,ID import from 1C,,0
+field,"ekd.card_file.card,lines",0,Lines,Строки,0
+field,"ekd.card_file.card,model",0,Model,Шаблон,0
+field,"ekd.card_file.card,model_str",0,Model Name,Наименование шаблона,0
+field,"ekd.card_file.card,name",0,Description,Описание,0
+field,"ekd.card_file.card,note",0,Note Card,Комментарии,0
+field,"ekd.card_file.card,number",0,Number,номер,0
+field,"ekd.card_file.card,parent",0,Parent Card,,0
+field,"ekd.card_file.card,party",0,Party,Контрагенты,0
+field,"ekd.card_file.card,post_date",0,Date Post,Дата отработки,0
+field,"ekd.card_file.card,rec_name",0,Name,Наименование,0
+field,"ekd.card_file.card,state",0,Status,Состояние,0
+field,"ekd.card_file.card,template",0,Crad Name,Тип карточки,0
+field,"ekd.card_file.template,active",0,Active,Действующий,0
+field,"ekd.card_file.template,cards",0,Real Documents,Документ,0
+field,"ekd.card_file.template,code_call",0,Code Call,Код вызова,0
+field,"ekd.card_file.template,company",0,Company,Учет.орг.,0
+field,"ekd.card_file.template,date_end",0,Date end,Дата окончания,0
+field,"ekd.card_file.template,date_start",0,Date Start,Дата начала,0
+field,"ekd.card_file.template,model",0,Model,Шаблон,0
+field,"ekd.card_file.template,model_str",0,Model Name,Наименование шаблона,0
+field,"ekd.card_file.template,name",0,Name,Наименование,0
+field,"ekd.card_file.template,rec_name",0,Name,Наименование,0
+field,"ekd.card_file.template,report",0,Form for print,Форма для печати,0
+field,"ekd.card_file.template,sequence",0,Sequence,Последовательность,0
+field,"ekd.card_file.template,shortcut",0,ShortCut,Краткое нименование,0
+field,"ekd.card_file.template,sort",0,Sort,Сортировка,0
+field,"ekd.card_file.template,type_card",0,Type account,Тип учета,0
+field,"ekd.card_file.template,view_form",0,Form View,Форма для просмотра,0
+help,"ekd.card_file.card,template",0,Template card,Шаблон карточки,0
+help,"ekd.card_file.template,code_call",0,"income, expense, ...",,0
+model,"ekd.card_file.card,name",0,Card,Карточка,0
+model,"ekd.card_file.template,name",0,Card Template,Шаблоны карточки,0
+model,"ir.action,name",act_card_files_form,Cards,Карточки,0
+model,"ir.action,name",act_card_files_template_form,Card Template,Шаблон карточки,0
+model,"ir.action,name",wizard_card_file_open,Card Open,Открыть карточку,0
+model,"ir.action,name",wizard_card_file_tree_open,Card Open,Открыть карточку,0
+model,"ir.ui.menu,name",menu_all_card_files,List of cards,Список карточек,0
+model,"ir.ui.menu,name",menu_card_files,Card File Management,Картотека,0
+model,"ir.ui.menu,name",menu_card_files_all,All Cards,Все карточки,0
+model,"ir.ui.menu,name",menu_card_files_template_form,Card Template,Шаблон карточки,0
+model,"ir.ui.menu,name",menu_conf_card_files,Configuration,Конфигурация,0
+model,"ir.ui.menu,name",menu_my_card_files,My Cards,Мои карточки,0
+model,"ir.ui.menu,name",menu_new_card_files,New Card,Новая карточка,0
+model,"res.group,name",group_card_file,Cards (all),Карточки (Все),0
+model,"res.group,name",group_card_file_admin,Administration Card File ,Управление (Картотека),0
+model,"res.group,name",group_card_file_template_admin,Administration Card File Template,Управление (Шаблоны картотеки),0
+view,ekd.card_file.card,0,Cards,Карточки,0
+view,ekd.card_file.card,0,Draft,Черновик,0
+view,ekd.card_file.card,0,List of Cards,Список карточек,0
+view,ekd.card_file.card,0,Post,В учет,0
+view,ekd.card_file.card,0,Restore,Восстановить,0
+view,ekd.card_file.template,0,Card Template,Шаблон карточки,0
+view,ekd.card_file.template,0,System setup,,0

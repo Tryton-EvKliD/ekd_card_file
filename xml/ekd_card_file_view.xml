@@ -1,1 +1,267 @@
-/home/trytond-1.8.2/trytond/modules/ekd_card_file/xml/ekd_card_file_view.xml
+<?xml version="1.0" encoding="utf-8"?>
+<tryton>
+    <data>
+        <record model="res.group" id="group_card_file_admin">
+            <field name="name">Administration Card File </field>
+        </record>
+        <record model="res.group" id="group_card_file_template_admin">
+            <field name="name">Administration Card File Template</field>
+        </record>
+        <record model="res.group" id="group_card_file">
+            <field name="name">Cards (all)</field>
+        </record>
+
+        <menuitem name="Card File Management" id="menu_card_files"
+             groups="group_card_file,group_card_file_admin" sequence="5"/>
+        <menuitem name="Configuration" groups="group_card_file_admin" sequence="5"
+            id="menu_conf_card_files" parent="menu_card_files"/>
+        <menuitem name="New Card" groups="group_card_file" sequence="10"
+            id="menu_new_card_files" parent="menu_card_files"/>
+        <menuitem name="My Cards" groups="group_card_file" sequence="20"
+            id="menu_my_card_files" parent="menu_card_files"/>
+
+    <!--
+    =======================
+    Tree and  Form  for The Documents
+    =======================
+    -->
+
+        <record id="view_card_files_form" model="ir.ui.view">
+            <field name="model">ekd.card_file.card</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                    <form string="List of Cards">
+                        <group col="10" colspan="4" id="gr_head">
+                            <group col="8" colspan="8" id="gr_head">
+                                <label name="company" />
+                                <field name="company" select="1"/>
+                                <newline/>
+                                <label name="template" />
+                                <field name="template" widget="selection" select="1"/>
+                                <label name="number"/>
+                                <field name="number" select="1"/>
+                                <label name="date_card" />
+                                <field name="date_card" select="1"/>
+                            </group>
+                            <group col="2" colspan="2" id="buttons">
+                                <label name="date_account" />
+                                <field name="date_account" select="1"/>
+                                <label name="state"/>
+                                <field name="state" select="1"/>
+                                <group col="2" colspan="2" id="buttons">
+                                    <button string="Post" name="button_post" type="object"
+                                        states="{'invisible': Not(Equal(Eval('state'), 'draft'))}"/>
+                                    <button string="Draft" name="button_draft" type="object"
+                                        states="{'invisible': Not(Equal(Eval('state'), 'posted'))}"/>
+                                    <button string="Restore" name="button_restore" type="object"
+                                        states="{'invisible': Not(Equal(Eval('state'), 'deleted'))}"/>
+                                </group>
+                            </group>
+                        </group>
+                        <group col="4" colspan="4" id="gr_spec">
+                            <group col="2" colspan="2" id="gr_party">
+                                <label name="party"/>
+                                <field name="party" select="1"/>
+                                <label name="employee"/>
+                                <field name="employee" select="1"/>
+                            </group>
+                            <group col="2" colspan="2" id="gr_amount">
+                                <label name="amount"/>
+                                <field name="amount"/>
+                            </group>
+                        </group>
+                        <group col="4" colspan="4" id="gr_note">
+                            <field name="note"/>
+                        </group>
+                        <field name="currency_digits" invisible="1"/>
+                    </form>
+                ]]>
+            </field>
+        </record>
+
+        <record id="view_card_files_tree" model="ir.ui.view">
+            <field name="model">ekd.card_file.card</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <tree string="Cards">
+                    <field name="template" select="1"/>
+                    <field name="number" select="1"/>
+                    <field name="date_card" select="2"/>
+                    <field name="date_account" select="1"/>
+                    <field name="employee" select="2"/>
+                    <field name="party" select="2"/>
+                    <field name="amount" select="2"/>
+                    <field name="state" select="2"/>
+                    <field name="currency_digits" tree_invisible="1"/>
+                </tree>
+                ]]>
+            </field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_card_files_form">
+            <field name="name">Cards</field>
+            <field name="res_model">ekd.card_file.card</field>
+            <field name="view_type">form</field>
+            <field name="context">{'model': Eval('template'), 'document_id': Eval('id')}</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_card_files_form_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="view_card_files_tree"/>
+            <field name="act_window" ref="act_card_files_form"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_card_files_form_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="view_card_files_form"/>
+            <field name="act_window" ref="act_card_files_form"/>
+        </record>
+
+        <menuitem
+            name="List of cards" groups="group_card_file_admin" sequence="8"
+            id="menu_all_card_files" parent="menu_card_files"/>
+        <menuitem
+            name="All Cards" sequence="8"
+            action="act_card_files_form" id="menu_card_files_all" parent="menu_all_card_files"/>
+
+        <record id="view_card_files_template_form" model="ir.ui.view">
+            <field name="model">ekd.card_file.template</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                    <form string="Card Template" >
+                        <group col="8" id="form">
+                            <label name="company" />
+                            <field name="company" />
+                            <newline/>
+                            <group col="8" colspan="8" id="gr_head">
+                                <label name="name"/>
+                                <field colspan="3" name="name"/>
+                                <label name="shortcut"/>
+                                <field colspan="1" name="shortcut"/>
+                                <label name="type_account"/>
+                                <field colspan="1" name="type_account"/>
+                            </group>
+                            <group col="2" colspan="2" id="gr_code">
+                                <label name="code_call"/>
+                                <field name="code_call"/>
+                                <label name="sort"/>
+                                <field name="sort"/>
+                                <label name="sequence"/>
+                                <field name="sequence"/>
+                            </group>
+                            <group col="2" colspan="2" id="gr_date" fill="0">
+                                <label name="date_start" />
+                                <field name="date_start" width="200"/>
+                                <label name="date_end"/>
+                                <field name="date_end" width="200"/>
+                                <label name="active"/>
+                                <field name="active"/>
+                            </group>
+                            <newline/>
+                            <group col="2" colspan="4" id="gr_model">
+                                <separator colspan="2" string="System setup" id="sp_system"/>
+                                <label name="model"/>
+                                <field name="model"/>
+                                <label name="model_str"/>
+                                <field name="model_str"/>
+                                <label name="view_form"/>
+                                <field name="view_form"/>
+                                <label name="report"/>
+                                <field name="report"/>
+                            </group>
+                        </group>
+                    </form>
+                ]]>
+            </field>
+        </record>
+
+        <record id="view_card_files_template_tree" model="ir.ui.view">
+            <field name="model">ekd.card_file.template</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                    <tree string="Card Template" >
+                        <field name="type_account" select="1"/>
+                        <field name="name" select="1"/>
+                        <field name="shortcut" select="1"/>
+                    </tree>
+                ]]>
+            </field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_card_files_template_form">
+            <field name="name">Card Template</field>
+            <field name="res_model">ekd.card_file.template</field>
+            <field name="view_type">form</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_card_files_template_form_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="view_card_files_template_tree"/>
+            <field name="act_window" ref="act_card_files_template_form"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_card_files_template_form_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="view_card_files_template_form"/>
+            <field name="act_window" ref="act_card_files_template_form"/>
+        </record>
+
+        <menuitem parent="menu_conf_card_files" action="act_card_files_template_form"
+            id="menu_card_files_template_form" sequence="10"/>
+
+        <record model="ir.action.wizard" id="wizard_card_file_tree_open">
+            <field name="name">Card Open</field>
+            <field name="wiz_name">ekd.card_file.wizard.open</field>
+        </record>
+        <record model="ir.action.keyword"
+            id="act_card_file_tree_open_keyword">
+            <field name="keyword">tree_open</field>
+            <field name="model">ekd.card_file.card,0</field>
+            <field name="action" ref="wizard_card_file_tree_open"/>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_card_file_open">
+            <field name="name">Card Open</field>
+            <field name="wiz_name">ekd.card_file.wizard.open</field>
+        </record>
+        <record model="ir.action.keyword"
+            id="act_card_file_open_keyword">
+            <field name="keyword">form_action</field>
+            <field name="model">ekd.card_file.card,0</field>
+            <field name="action" ref="wizard_card_file_open"/>
+        </record>
+
+        <record model="ir.model.access" id="access_card_files">
+            <field name="model" search="[('model', '=', 'ekd.card_file.card')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+
+        <record model="ir.model.access" id="access_card_files_admin">
+            <field name="model" search="[('model', '=', 'ekd.card_file.card')]"/>
+            <field name="group" ref="group_card_file_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <record model="ir.model.access" id="access_card_files_template">
+            <field name="model" search="[('model', '=', 'ekd.card_file.template')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_card_files_template_admin">
+            <field name="model" search="[('model', '=', 'ekd.card_file.template')]"/>
+            <field name="group" ref="group_card_file_template_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+    </data>
+</tryton>
